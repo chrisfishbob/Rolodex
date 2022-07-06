@@ -10,25 +10,23 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: [
-        {
-          name: "Daquon",
-          id: "0",
-        },
-        {
-          name: "Mark",
-          id: "1",
-        },
-        {
-          name: "Jamal",
-          id: "2",
-        },
-        {
-          name: "Saquon",
-          id: "3",
-        },
-      ],
+      monsters: [],
     };
+  }
+
+  // Mounting is the first time a component gets placed on the DOM
+  // Remounted can only happen if remounted
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((Response) => Response.json())
+      .then((users) =>
+        this.setState(() => {
+          return { monsters: users};
+        },
+        () => {
+          console.log(this.state)
+        })
+      );
   }
 
   render() {
