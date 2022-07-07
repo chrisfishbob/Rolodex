@@ -1,8 +1,9 @@
 import { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import CardList from "./components/card_list/card_list.component";
+import CardList from "./components/card-list/card-list.component";
 import { waitFor } from "@testing-library/react";
+import SearchBox from "./components/search-box/search-box.component";
 
 // Component is a self contained piece of code that returns some
 // visual UI representation of HTML
@@ -54,14 +55,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input
+        <SearchBox
+          onChangeHandler={onSearchChange}
+          placeholder="search monsters"
           className="search-box"
-          type="search"
-          placeholder="Search monsters"
-          onChange={onSearchChange}
         />
 
-        <CardList monsters = {filteredMonsters}/>
+        <CardList monsters={filteredMonsters} />
       </div>
     );
   }
