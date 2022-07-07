@@ -43,6 +43,7 @@ class App extends Component {
   };
 
   // This runs second
+  // Test
   render() {
     // Pulls value from this.state into var monsters and searchField
     const { monsters, searchField } = this.state;
