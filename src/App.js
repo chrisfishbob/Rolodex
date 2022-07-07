@@ -12,7 +12,7 @@ class App extends Component {
 
     this.state = {
       monsters: [],
-      searchField: ""
+      searchField: "",
     };
   }
 
@@ -24,16 +24,31 @@ class App extends Component {
       .then((Response) => Response.json())
       .then((users) =>
         this.setState(() => {
+          // Setting monsters equals to users
           return { monsters: users };
         })
       );
   }
 
+  onSearchChange = (event) => {
+    // "aAaA" => "aaaa"
+    const searchField = event.target.value.toLowerCase();
+
+    this.setState(() => {
+      // Shorthand for setting this.searchField to searchField 
+      return { searchField };
+    });
+  };
+
   // This runs second
   render() {
-    
-    const filteredMonsters = this.state.monsters.filter((monster) => {
-      return monster.name.toLowerCase().includes(this.state.searchField);
+    // Pulls value from this.state into var monsters and searchField
+    const {monsters, searchField} = this.state;
+    // Same logic as above, but onSearchChange is not a state
+    const {onSearchChange} = this;
+
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLowerCase().includes(searchField);
     });
 
     return (
@@ -42,16 +57,11 @@ class App extends Component {
           className="search-box"
           type="search"
           placeholder="Search monsters"
-          onChange={(event) => {
-            // "aAaA" => "aaaa"
-            const searchField = event.target.value.toLowerCase();
-
-            this.setState(() => {
-              return {searchField};
-            })
-          }}
+          onChange={onSearchChange}
         />
+
         {filteredMonsters.map((monster) => {
+          // Map iterates through each component in the array
           return (
             <div key={monster.id}>
               <h1>{monster.name}</h1>
