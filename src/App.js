@@ -8,11 +8,15 @@ const App = () => {
   const [monsters, setMonsters] = useState([]);
   const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
+  // useEffct takes two arguents: The first is the callback function, which is
+  // what we want useEffect to do.
+  // The seconds argument is the depency, which tells useEffect to invoke the
+  // callback fuction if the value inside the second argument changes.
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((Response) => Response.json())
       .then((users) => setMonsters(users));
-    console.log("Fired");
+      // Use dependency so this will only run once when it mounts the first time
   }, []);
 
   useEffect(() => {
@@ -28,8 +32,6 @@ const App = () => {
     setSearchField(searchFieldString);
   };
 
-  console.log("Render");
-
   return (
     <div className="App">
       <h1 className="app-title">Monsters Rolodex</h1>
@@ -43,68 +45,5 @@ const App = () => {
     </div>
   );
 };
-
-// Component is a self contained piece of code that returns some
-// visual UI representation of HTML
-// class App extends Component {
-//   // Constructor runs first
-//   constructor() {
-//     super();
-
-//     this.state = {
-//       monsters: [],
-//       searchField: "",
-//     };
-//   }
-
-//   // Mounting is the first time a component gets placed on the DOM
-//   // Remounted can only happen if remounted
-//   // This runs third
-//   componentDidMount() {
-//     fetch("https://jsonplaceholder.typicode.com/users")
-//       .then((Response) => Response.json())
-//       .then((users) =>
-//         this.setState(() => {
-//           // Setting monsters equals to users
-//           return { monsters: users };
-//         })
-//       );
-//   }
-
-//   onSearchChange = (event) => {
-//     // "aAaA" => "aaaa"
-//     const searchField = event.target.value.toLowerCase();
-
-//     this.setState(() => {
-//       // Shorthand for setting this.searchField to searchField
-//       return { searchField };
-//     });
-//   };
-
-//   // This runs second
-//   render() {
-//     // Pulls value from this.state into var monsters and searchField
-//     const { monsters, searchField } = this.state;
-//     // Same logic as above, but onSearchChange is not a state
-//     const { onSearchChange } = this;
-
-//     const filteredMonsters = monsters.filter((monster) => {
-//       return monster.name.toLowerCase().includes(searchField);
-//     });
-
-//     return (
-//       <div className="App">
-//         <h1 className="app-title">Monsters Rolodex</h1>
-//         <SearchBox
-//           onChangeHandler={onSearchChange}
-//           placeholder="search monsters"
-//           className="search-box"
-//         />
-
-//         <CardList monsters={filteredMonsters} />
-//       </div>
-//     );
-//   }
-// }
 
 export default App;
