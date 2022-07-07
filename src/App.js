@@ -1,6 +1,7 @@
 import { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import CardList from "./components/card_list/card_list.component";
 import { waitFor } from "@testing-library/react";
 
 // Component is a self contained piece of code that returns some
@@ -35,7 +36,7 @@ class App extends Component {
     const searchField = event.target.value.toLowerCase();
 
     this.setState(() => {
-      // Shorthand for setting this.searchField to searchField 
+      // Shorthand for setting this.searchField to searchField
       return { searchField };
     });
   };
@@ -43,9 +44,9 @@ class App extends Component {
   // This runs second
   render() {
     // Pulls value from this.state into var monsters and searchField
-    const {monsters, searchField} = this.state;
+    const { monsters, searchField } = this.state;
     // Same logic as above, but onSearchChange is not a state
-    const {onSearchChange} = this;
+    const { onSearchChange } = this;
 
     const filteredMonsters = monsters.filter((monster) => {
       return monster.name.toLowerCase().includes(searchField);
@@ -60,14 +61,7 @@ class App extends Component {
           onChange={onSearchChange}
         />
 
-        {filteredMonsters.map((monster) => {
-          // Map iterates through each component in the array
-          return (
-            <div key={monster.id}>
-              <h1>{monster.name}</h1>
-            </div>
-          );
-        })}
+        <CardList monsters = {filteredMonsters}/>
       </div>
     );
   }
