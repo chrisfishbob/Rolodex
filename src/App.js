@@ -13,10 +13,11 @@ const App = () => {
   // The seconds argument is the depency, which tells useEffect to invoke the
   // callback fuction if the value inside the second argument changes.
   useEffect(() => {
+    console.log("Fetched");
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((Response) => Response.json())
       .then((users) => setMonsters(users));
-      // Use dependency so this will only run once when it mounts the first time
+    // Use dependency so this will only run once when it mounts the first time
   }, []);
 
   useEffect(() => {
